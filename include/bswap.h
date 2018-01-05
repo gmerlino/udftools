@@ -45,11 +45,16 @@
 #endif
 #endif
 
-/* macOS (Intel) */
+/* macOS */
 #ifdef __APPLE__
 #define __LITTLE_ENDIAN LITTLE_ENDIAN
 #define __BIG_ENDIAN BIG_ENDIAN
 #define __BYTE_ORDER BYTE_ORDER
+#if __BYTE_ORDER == BIG_ENDIAN
+#define __BIG_ENDIAN_BITFIELD
+#elif __BYTE_ORDER == LITTLE_ENDIAN
+#define __LITTLE_ENDIAN_BITFIELD
+#endif
 #endif /* __APPLE__ */
 
 #define constant_swab16(x) \
