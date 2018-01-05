@@ -23,6 +23,11 @@
 #ifndef __BSWAP_H
 #define __BSWAP_H
 
+#ifndef HAVE_SYS_ISA_DEFS_H
+#include "sys/isa_defs.h"
+#define HAVE_SYS_ISA_DEFS_H
+#endif
+
 #include "config.h"
 
 #include <inttypes.h>
@@ -41,6 +46,11 @@
 #define __BYTE_ORDER __BIG_ENDIAN
 #endif
 #endif
+
+/* macOS (Intel) */
+#ifdef __APPLE__
+#define __BYTE_ORDER __LITTLE_ENDIAN
+#endif /* __APPLE__ */
 
 #define constant_swab16(x) \
 	((uint16_t)((((uint16_t)(x) & 0x00FFU) << 8) | \
