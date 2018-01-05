@@ -1,5 +1,12 @@
 language: c
 
+matrix:
+  include:
+    - os: linux
+    - os: osx
+  allow_failures:
+    - os: osx
+
 compiler:
   - gcc
   - clang
@@ -48,6 +55,8 @@ addons: &addons
 #          branch_pattern: master
 
 before_script:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install automake libtool cmake wget; fi
   - cd ..
   - mkdir cmocka
   - cd cmocka

@@ -23,16 +23,14 @@
 #ifndef __BSWAP_H
 #define __BSWAP_H
 
-#ifndef HAVE_SYS_ISA_DEFS_H
-#include "sys/isa_defs.h"
-#define HAVE_SYS_ISA_DEFS_H
-#endif
-
 #include "config.h"
 
 #include <inttypes.h>
 #include <sys/types.h>
 
+#if defined(HAVE_MACHINE_ENDIAN_H)
+#include <machine/endian.h>
+#endif
 #ifdef HAVE_SYS_ISA_DEFS_H
 #define __LITTLE_ENDIAN 1234
 #define __BIG_ENDIAN 4321
@@ -49,7 +47,7 @@
 
 /* macOS (Intel) */
 #ifdef __APPLE__
-#define __BYTE_ORDER __LITTLE_ENDIAN
+#define __BYTE_ORDER BYTE_ORDER
 #endif /* __APPLE__ */
 
 #define constant_swab16(x) \
