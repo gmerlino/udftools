@@ -28,7 +28,9 @@
 
 #include "config.h"
 
-#include <malloc.h>
+#ifndef __clang__
+# include <malloc.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -40,8 +42,12 @@
 #include <errno.h>
 #include <limits.h>
 #include <sys/ioctl.h>
+#if defined(__linux__)
 #include <linux/fs.h>
 #include <linux/fd.h>
+#elif defined(__APPLE__)
+#include <sys/disk.h>
+#endif
 
 #include "mkudffs.h"
 #include "defaults.h"

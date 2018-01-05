@@ -31,7 +31,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
-#include <malloc.h>
+#ifndef __clang__
+# include <malloc.h>
+#endif
 #include <ctype.h>
 #include <errno.h>
 

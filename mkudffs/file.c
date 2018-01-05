@@ -27,7 +27,9 @@
 
 #include "config.h"
 
+#ifndef __clang__
 #include <malloc.h>
+#endif
 
 #include "libudffs.h"
 #include "file.h"
