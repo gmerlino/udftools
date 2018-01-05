@@ -31,8 +31,20 @@ matrix:
     - os: linux
       compiler: gcc
       compiler: clang
+      script:
+        - if [ -n "$COVERITY_SCAN_TOKEN" ]; then exit 0; fi
+        - ./autogen.sh $TESTS
+        - ./configure $TESTS
+        - make
+        - if [ -n "$TESTS" ]; then ./udffsck/travis-tests.sh $TESTLEVEL; fi
     - os: osx
       compiler: clang
+      script:
+        - if [ -n "$COVERITY_SCAN_TOKEN" ]; then exit 0; fi
+        - ./autogen.sh $TESTS
+        - ./configure $TESTS
+        - cd libudffs && make
+        - cd ../udffsck && make
   allow_failures:
     - os: osx
 #      env:
